@@ -1,12 +1,7 @@
-from typing import Dict, List, Union
-
 import arviz as az
-import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import pymc as pm
 from pydantic import BaseModel
-from scipy.stats import bernoulli, expon
 
 RANDOM_SEED = 4000
 rng = np.random.default_rng(RANDOM_SEED)
@@ -28,7 +23,7 @@ class BinomialData(BaseModel):
 class ABTestModelFactory(BaseModel):
     priors: BetaPrior
 
-    def create_model(self, data: List[BinomialData]) -> pm.Model:
+    def create_model(self, data: list[BinomialData]) -> pm.Model:
         trials = [d.trials for d in data]
         successes = [d.successes for d in data]
         with pm.Model() as model:

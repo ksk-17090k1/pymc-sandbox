@@ -1,5 +1,4 @@
 # %%
-from typing import Dict, List, Union
 
 import arviz as az
 import matplotlib.pyplot as plt
@@ -40,7 +39,7 @@ class BinomialData(BaseModel):
 class ScoutModelFactory(BaseModel):
     priors: BetaPrior
 
-    def create_model(self, data: List[BinomialData]) -> pm.Model:
+    def create_model(self, data: list[BinomialData]) -> pm.Model:
         trials = [d.trials for d in data]
         successes = [d.successes for d in data]
         with pm.Model() as model:

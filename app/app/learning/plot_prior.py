@@ -1,12 +1,7 @@
-from typing import Dict, List, Union
-
 import arviz as az
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import pymc as pm
-from pydantic import BaseModel
-from scipy.stats import bernoulli, expon
 
 from app.learning.ab_test_model_factory import ABTestModelFactory, BinomialData
 
@@ -23,7 +18,7 @@ plotting_defaults = dict(
 )
 
 
-def plot_prior(model_factory: ABTestModelFactory):
+def plot_prior(model_factory: ABTestModelFactory, is_show: bool = False):
     with model_factory.create_model(data=[BinomialData(trials=1, successes=1)]):
         prior = pm.sample_prior_predictive(draws=100, return_inferencedata=False)
 
@@ -33,3 +28,5 @@ def plot_prior(model_factory: ABTestModelFactory):
         f"B vs. A Rel Uplift Prior Predictive, {model_factory.priors}", fontsize=10
     )
     axs[0].axvline(x=0, color="red")
+    if is_show:
+        plt.show()
