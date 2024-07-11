@@ -1,3 +1,13 @@
+
+.PHONY: init-lefthook
+init-lefthook:
+	@echo "setup lefthook"
+	@brew install actionlint
+	@brew install lefthook
+	@lefthook install
+# 既存のhooksPathの設定が悪さをする場合があるので削除する
+	git config --local --unset core.hooksPath
+
 # --- poetry ---
 
 pj_name = app
